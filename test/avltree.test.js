@@ -391,8 +391,8 @@ describe('AVL tree', function () {
         avlt.insert(k, 'data ' + k);
       });
 
-      assert.deepEqual(avlt.betweenBounds({ $gte: 8, $lte: 15 }), ['data 8', 'data 10', 'data 13', 'data 15']);
-      assert.deepEqual(avlt.betweenBounds({ $gt: 8, $lt: 15 }), ['data 10', 'data 13']);
+      assert.deepEqual(avlt.betweenBounds({ $gte: 8, $lte: 15 }), [{ key: 8, data: 'data 8' }, { key: 10, data: 'data 10' }, { key: 13, data: 'data 13' }, { key: 15, data: 'data 15' }]);
+      assert.deepEqual(avlt.betweenBounds({ $gt: 8, $lt: 15 }), [{ key: 10, data: 'data 10'}, { key: 13, data: 'data 13'}]);
     });
 
     it('Bounded search can handle cases where query contains both $lt and $lte, or both $gt and $gte', function () {
@@ -402,13 +402,13 @@ describe('AVL tree', function () {
         avlt.insert(k, 'data ' + k);
       });
 
-      assert.deepEqual(avlt.betweenBounds({ $gt:8, $gte: 8, $lte: 15 }), ['data 10', 'data 13', 'data 15']);
-      assert.deepEqual(avlt.betweenBounds({ $gt:5, $gte: 8, $lte: 15 }), ['data 8', 'data 10', 'data 13', 'data 15']);
-      assert.deepEqual(avlt.betweenBounds({ $gt:8, $gte: 5, $lte: 15 }), ['data 10', 'data 13', 'data 15']);
+      assert.deepEqual(avlt.betweenBounds({ $gt:8, $gte: 8, $lte: 15 }), [{ key: 10, data: 'data 10' }, { key: 13, data: 'data 13' }, { key: 15, data: 'data 15' }]);
+      assert.deepEqual(avlt.betweenBounds({ $gt:5, $gte: 8, $lte: 15 }), [{ key: 8, data: 'data 8' }, { key: 10, data: 'data 10' }, { key: 13, data: 'data 13' }, { key: 15, data: 'data 15' }]);
+      assert.deepEqual(avlt.betweenBounds({ $gt:8, $gte: 5, $lte: 15 }), [{ key: 10, data: 'data 10' }, { key: 13, data: 'data 13' }, { key: 15, data: 'data 15' }]);
 
-      assert.deepEqual(avlt.betweenBounds({ $gte: 8, $lte: 15, $lt: 15 }), ['data 8', 'data 10', 'data 13']);
-      assert.deepEqual(avlt.betweenBounds({ $gte: 8, $lte: 18, $lt: 15 }), ['data 8', 'data 10', 'data 13']);
-      assert.deepEqual(avlt.betweenBounds({ $gte: 8, $lte: 15, $lt: 18 }), ['data 8', 'data 10', 'data 13', 'data 15']);
+      assert.deepEqual(avlt.betweenBounds({ $gte: 8, $lte: 15, $lt: 15 }), [{ key: 8, data: 'data 8' }, { key: 10, data: 'data 10' }, { key: 13, data: 'data 13' }]);
+      assert.deepEqual(avlt.betweenBounds({ $gte: 8, $lte: 18, $lt: 15 }), [{ key: 8, data: 'data 8' }, { key: 10, data: 'data 10' }, { key: 13, data: 'data 13' }]);
+      assert.deepEqual(avlt.betweenBounds({ $gte: 8, $lte: 15, $lt: 18 }), [{ key: 8, data: 'data 8' }, { key: 10, data: 'data 10' }, { key: 13, data: 'data 13' }, { key: 15, data: 'data 15' }]);
     });
 
     it('Bounded search can work when one or both boundaries are missing', function () {
@@ -418,8 +418,8 @@ describe('AVL tree', function () {
         avlt.insert(k, 'data ' + k);
       });
 
-      assert.deepEqual(avlt.betweenBounds({ $gte: 11 }), ['data 13', 'data 15', 'data 18']);
-      assert.deepEqual(avlt.betweenBounds({ $lte: 9 }), ['data 3', 'data 5', 'data 8']);
+      assert.deepEqual(avlt.betweenBounds({ $gte: 11 }), [{ key: 13, data: 'data 13' }, { key: 15, data: 'data 15' }, { key: 18, data: 'data 18' }]);
+      assert.deepEqual(avlt.betweenBounds({ $lte: 9 }), [{ key: 3, data: 'data 3' }, { key: 5, data: 'data 5' }, { key: 8, data: 'data 8' }]);
     });
 
   });   /// ==== End of 'Search' ==== //
